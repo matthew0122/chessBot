@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "nqMgy57GF7xi3KlYvnkAwyL00XMNXmdq1r2xWCzE/iruN0tMeQbfmDyrVf99AcoFaczq4XXbpffSzU06jbaDWA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Matthew Bergin\\Desktop\\Chess-Challenge-main\\Chess-Challenge-main\\Chess-Challenge\\Chess-Challenge.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\raylib-cs\\4.5.0.2\\raylib-cs.4.5.0.2.nupkg.sha512",
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.20\\microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.20\\microsoft.windowsdesktop.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.20\\microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\Matthew Bergin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.20\\microsoft.netcore.app.host.win-x64.6.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}
