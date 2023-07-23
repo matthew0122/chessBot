@@ -26,7 +26,7 @@ public class MyBot : IChessBot
         if(movesMade > 3){
             return eval;
         }
-        
+        //ONLY WORKING WITH BLACK FOR SOME REASON
         board.MakeMove(move);
         double pos = positionEvaluator(board, white);
         if(board.PlyCount < 4 && move.MovePieceType == PieceType.Pawn && isMyTurn(board, white)){
