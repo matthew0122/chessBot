@@ -19,7 +19,7 @@ public class MyBot : IChessBot
                 maxEvalIndex = i;
             }
         }
-        Console.WriteLine("Result: " + maxEval + board.IsWhiteToMove);
+        Console.WriteLine("Result: " + maxEval);
         return moves[maxEvalIndex];
     }
     private double moveEvaluater(Board board, Move move, int movesMade, double eval, bool white){
@@ -68,7 +68,7 @@ public class MyBot : IChessBot
             }
         }
         Move[] moves = board.GetLegalMoves();
-        /*if(board.IsInCheckmate() && isMyTurn(board, white)){
+        if(board.IsInCheckmate() && !isMyTurn(board, white)){
             board.UndoMove(move);
             Console.WriteLine(move);
             return 1000000;
@@ -76,7 +76,7 @@ public class MyBot : IChessBot
         else if(board.IsInCheckmate()){
             board.UndoMove(move);
             return -1000000;
-        }*/
+        }
         
         
         for(int i = 0; i < moves.Length; i++){
