@@ -26,17 +26,32 @@ public class MyBot : IChessBot
         if(movesMade > 3){
             return eval;
         }
-        
+        //ONLY WORKING WITH BLACK FOR SOME REASON
         board.MakeMove(move);
         double pos = positionEvaluator(board, white);
-        if(board.PlyCount < 4 && move.MovePieceType == PieceType.Pawn && isMyTurn(board, white)){
-            pos -= 0.3;
+        if(board.PlyCount < 4 && move.MovePieceType == PieceType.Pawn){
+            if(white){
+                pos += 0.3;
+            }
+            else{
+                pos -= 0.3;
+            }
         }
         else if(board.PlyCount < 10 && (move.MovePieceType == PieceType.King || move.MovePieceType == PieceType.Pawn || move.MovePieceType == PieceType.Queen)){
-            pos += 0.3;
+            if(white){
+                pos += 0.3;
+            }
+            else{
+                pos -= 0.3;
+            }
         }
-        if(move.IsCastles && !isMyTurn(board, white)){
-            pos += 1.5;
+        if(move.IsCastles){
+            if(white){
+                pos += 0.8;
+            }
+            else{
+                pos -= 0.8;
+            }
         }
         /*else if(move.MovePieceType == PieceType.King && board.PlyCount < 80 && !isMyTurn(board, white)){
             pos += 1000.0;
