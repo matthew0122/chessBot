@@ -14,16 +14,16 @@ public class MyBot : IChessBot
                 maxEval = eval;
                 maxEvalIndex = i;
             }
-            else if(eval < maxEval){
+            else if(eval < maxEval && !board.IsWhiteToMove){
                 maxEval = eval;
                 maxEvalIndex = i;
             }
         }
-        Console.WriteLine("Result: " + maxEval);
+        Console.WriteLine("Result: " + maxEval + board.IsWhiteToMove);
         return moves[maxEvalIndex];
     }
     private double moveEvaluater(Board board, Move move, int movesMade, double eval, bool white){
-        if(movesMade > 3){
+        if(movesMade > 1){
             return eval;
         }
         //ONLY WORKING WITH BLACK FOR SOME REASON
@@ -57,8 +57,14 @@ public class MyBot : IChessBot
             pos += 1000.0;
         }*/
         if(move.IsCapture){
-            if(move.CapturePieceType > move.MovePieceType && !isMyTurn(board, white)){
-                pos += move.CapturePieceType - move.MovePieceType;
+            if(move.CapturePieceType > move.MovePieceType){
+                if(white){
+                    pos += move.CapturePieceType - move.MovePieceType;
+                }
+                else{
+                    pos -= move.CapturePieceType - move.MovePieceType;
+                }
+                
             }
         }
         Move[] moves = board.GetLegalMoves();
@@ -110,11 +116,11 @@ public class MyBot : IChessBot
         else{
             pos = Math.Cbrt(moves.Length - 15.0) * board.PlyCount / -3000;
         }
-        if(white){
-            pos -= materialDifference(board);
+        if(true){
+            pos += materialDifference(board);
         }
         else{
-            pos += materialDifference(board);
+            pos -= materialDifference(board);
         }
         return pos;
     }
