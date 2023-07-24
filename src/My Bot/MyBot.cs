@@ -55,7 +55,7 @@ public class MyBot : IChessBot
         /*else if(move.MovePieceType == PieceType.King && board.PlyCount < 80 && !isMyTurn(board, white)){
             pos += 1000.0;
         }*/
-        if(move.IsCapture){
+        /*if(move.IsCapture){
             if(move.CapturePieceType > move.MovePieceType){
                 if(white){
                     pos += move.CapturePieceType - move.MovePieceType;
@@ -65,7 +65,7 @@ public class MyBot : IChessBot
                 }
                 
             }
-        }
+        }*/ //THIS NEEDS MY OWN VALUES
         Move[] moves = board.GetLegalMoves();
         if(board.IsInCheckmate() && !isMyTurn(board, white)){
             board.UndoMove(move);
@@ -115,18 +115,48 @@ public class MyBot : IChessBot
         else{
             pos = Math.Cbrt(moves.Length - 15.0) * board.PlyCount / -3000;
         }
-        if(true){
-            pos += materialDifference(board);
-        }
-        else{
-            pos -= materialDifference(board);
-        }
+        pos += materialDifference(board);
+        pos += getSpaceAdvantage(board) / 10;
         return pos;
     }
     private bool isMyTurn(Board board, bool white){
         return ((!white && board.IsWhiteToMove) || (white && !board.IsWhiteToMove));
     }
-    private int getSpace(Board board){
-        return 0;
+    private int getSpaceAdvantage(Board board){           
+        return getSpaceAdvantageSide(board, true) - getSpaceAdvantageSide(board, false);
+    }
+    public int getSpaceAdvantageSide(Board board, bool white){
+        PieceList[] pieces = board.GetAllPieceLists();
+        int whiteSquaresAttacked = 0;
+        int listLoc = 0;
+        if(!white){
+            listLoc += 6;
+        }
+        PieceList pieceList = pieces[listLoc];
+        for(int j=0; j < pieceList.Count; j++){
+            Piece piece = pieceList.GetPiece(j);
+            whiteSquaresAttacked += BitboardHelper.GetNumberOfSetBits(BitboardHelper.GetPawnAttacks(piece.Square, white));
+        }
+        pieceList = pieces[++listLoc];
+        for(int j=0; j < pieceList.Count; j++){
+            Piece piece = pieceList.GetPiece(j);
+            whiteSquaresAttacked += BitboardHelper.GetNumberOfSetBits(BitboardHelper.GetKnightAttacks(piece.Square));
+        }
+        pieceList = pieces[++listLoc];
+        for(int j=0; j < pieceList.Count; j++){
+            Piece piece = pieceList.GetPiece(j);
+            whiteSquaresAttacked += BitboardHelper.GetNumberOfSetBits(BitboardHelper.GetSliderAttacks(PieceType.Bishop, piece.Square, board));
+        }
+        pieceList = pieces[++listLoc];
+        for(int j=0; j < pieceList.Count; j++){
+            Piece piece = pieceList.GetPiece(j);
+            whiteSquaresAttacked += BitboardHelper.GetNumberOfSetBits(BitboardHelper.GetSliderAttacks(PieceType.Rook, piece.Square, board));
+        }
+        pieceList = pieces[++listLoc];
+        for(int j=0; j < pieceList.Count; j++){
+            Piece piece = pieceList.GetPiece(j);
+            whiteSquaresAttacked += BitboardHelper.GetNumberOfSetBits(BitboardHelper.GetSliderAttacks(PieceType.Queen, piece.Square, board));
+        }
+        return whiteSquaresAttacked;
     }
 }
